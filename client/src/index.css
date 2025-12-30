@@ -1,0 +1,184 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  
+  --font-sans: "Inter", sans-serif;
+  --font-display: "Space Grotesk", sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
+  
+  --animate-glitch: glitch 1s linear infinite;
+  --animate-pulse-glow: pulse-glow 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  --animate-fade-in-up: fade-in-up 0.8s ease-out forwards;
+  
+  @keyframes glitch {
+    2%, 64% { transform: translate(2px,0) skew(0deg); }
+    4%, 60% { transform: translate(-2px,0) skew(0deg); }
+    62% { transform: translate(0,0) skew(5deg); }
+  }
+  
+  @keyframes pulse-glow {
+    0%, 100% { opacity: 1; box-shadow: 0 0 10px var(--primary); }
+    50% { opacity: .8; box-shadow: 0 0 20px var(--primary); }
+  }
+
+  @keyframes fade-in-up {
+    0% { opacity: 0; transform: translateY(20px); }
+    100% { opacity: 1; transform: translateY(0); }
+  }
+}
+
+/* Cyberpunk Purple Theme */
+:root {
+  /* Base Colors - Dark Mode Default */
+  --background: oklch(0.10 0.01 280); /* Deep Void #050505 approx */
+  --foreground: oklch(0.95 0.01 280); /* Hologram White */
+  
+  --card: oklch(0.14 0.02 280);
+  --card-foreground: oklch(0.95 0.01 280);
+  
+  --popover: oklch(0.12 0.02 280);
+  --popover-foreground: oklch(0.95 0.01 280);
+  
+  /* Primary Purple #7a42d9 -> OKLCH approx 0.55 0.22 280 */
+  --primary: oklch(0.55 0.22 280); 
+  --primary-foreground: oklch(0.98 0.01 280); /* White text on purple */
+  
+  /* Secondary - Lighter Lavender/Pinkish for contrast */
+  --secondary: oklch(0.75 0.15 300);
+  --secondary-foreground: oklch(0.20 0.05 280);
+  
+  --muted: oklch(0.20 0.02 280);
+  --muted-foreground: oklch(0.65 0.05 280);
+  
+  --accent: oklch(0.25 0.05 280);
+  --accent-foreground: oklch(0.98 0.01 280);
+  
+  /* Alert Red - Kept for errors */
+  --destructive: oklch(0.6 0.22 25);
+  --destructive-foreground: oklch(0.98 0.01 0);
+  
+  --border: oklch(0.25 0.02 280);
+  --input: oklch(0.25 0.02 280);
+  --ring: oklch(0.55 0.22 280); /* Matches Primary */
+  
+  --radius: 0.25rem;
+}
+
+.dark {
+  /* Same as root since we are dark-first */
+  --background: oklch(0.10 0.01 280);
+  --foreground: oklch(0.95 0.01 280);
+  --card: oklch(0.14 0.02 280);
+  --card-foreground: oklch(0.95 0.01 280);
+  --popover: oklch(0.12 0.02 280);
+  --popover-foreground: oklch(0.95 0.01 280);
+  --primary: oklch(0.55 0.22 280);
+  --primary-foreground: oklch(0.98 0.01 280);
+  --secondary: oklch(0.75 0.15 300);
+  --secondary-foreground: oklch(0.20 0.05 280);
+  --muted: oklch(0.20 0.02 280);
+  --muted-foreground: oklch(0.65 0.05 280);
+  --accent: oklch(0.25 0.05 280);
+  --accent-foreground: oklch(0.98 0.01 280);
+  --destructive: oklch(0.6 0.22 25);
+  --destructive-foreground: oklch(0.98 0.01 0);
+  --border: oklch(0.25 0.02 280);
+  --input: oklch(0.25 0.02 280);
+  --ring: oklch(0.55 0.22 280);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground font-sans antialiased selection:bg-primary/30 selection:text-primary-foreground;
+    background-image: radial-gradient(circle at 50% 0%, oklch(0.2 0.05 280 / 0.2) 0%, transparent 50%);
+  }
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-display tracking-tight;
+  }
+  code, pre {
+    @apply font-mono;
+  }
+}
+
+@layer components {
+  .container {
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+  
+  .flex {
+    min-height: 0;
+    min-width: 0;
+  }
+
+  /* Custom Tech Utilities */
+  .text-glow {
+    text-shadow: 0 0 10px var(--primary);
+  }
+  
+  .border-glow {
+    box-shadow: 0 0 5px var(--primary);
+  }
+  
+  .bg-grid-pattern {
+    background-size: 40px 40px;
+    background-image: linear-gradient(to right, oklch(1 1 1 / 0.05) 1px, transparent 1px),
+                      linear-gradient(to bottom, oklch(1 1 1 / 0.05) 1px, transparent 1px);
+  }
+
+  @media (min-width: 640px) {
+    .container {
+      padding-left: 1.5rem;
+      padding-right: 1.5rem;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .container {
+      padding-left: 2rem;
+      padding-right: 2rem;
+      max-width: 1280px;
+    }
+  }
+}

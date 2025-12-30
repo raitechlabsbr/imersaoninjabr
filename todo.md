@@ -1,0 +1,8 @@
+- [x] Atualizar variáveis CSS em `client/src/index.css` para usar a nova paleta roxa (#7a42d9)
+- [x] Ajustar sombras e efeitos de brilho (glow) no componente `Hero.tsx`
+- [x] Ajustar sombras e efeitos de brilho (glow) no componente `Pricing.tsx`
+- [x] Substituir cor vermelha (destructive) por roxa (primary) no componente `PainPoints.tsx`
+- [ ] Substituir "Imersão Ninja AI" por "Imersão Ninja RaiTech" em `client/index.html` (Title)
+- [ ] Substituir "Imersão Ninja AI" por "Imersão Ninja RaiTech" em `client/src/components/Solution.tsx`
+- [ ] Substituir "Imersão Ninja AI" por "Imersão Ninja RaiTech" em `client/src/components/Footer.tsx`
+- [ ] Salvar novo checkpoint e entregar
