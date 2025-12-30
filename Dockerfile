@@ -3,34 +3,40 @@ FROM node:18 as build
 
 WORKDIR /app
 
-# Ativa o pnpm (que já vem no Node 18 via corepack)
+# Ativa o pnpm
 RUN corepack enable
 
-# Copia os ficheiros de definição de pacotes
+# Copia os ficheiros de definição
 COPY package.json pnpm-lock.yaml* ./
 
-# IMPORTANTE: Copia a pasta de patches antes de instalar
-# O teu package.json exige isso para o 'wouter'
+# Copia a pasta de patches (necessário para o teu projeto)
 COPY patches ./patches
 
-# Instala as dependências usando pnpm
+# Instala as dependências
 RUN pnpm install
 
-# Copia o resto do código
+# Copia todo o código
 COPY . .
 
-# Cria a versão de produção
-RUN pnpm run build
+# --- MUDANÇA IMPORTANTE AQUI ---
+# Em vez de 'pnpm run build' (que tenta compilar o backend junto),
+# vamos rodar apenas o build do Vite para gerar o site estático.
+RUN npx vite build
 
 # --- Etapa 2: Servidor (Nginx) ---
 FROM nginx:alpine
 
-# Copia os ficheiros estáticos gerados (pasta dist)
-COPY --from=build /app/dist /usr/share/nginx/html
+# Remove a página padrão do Nginx (aquela "Welcome to nginx" que estás a ver)
+RUN rm -rf /usr/share/nginx/html/*
 
-# Configuração do Nginx para Single Page Application (React)
+# Copia o conteúdo da pasta dist (gerada pelo Vite) para o Nginx
+# O ponto final (.) garante que copiamos o CONTEÚDO, não a pasta em si
+COPY --from=build /app/dist/ /usr/share/nginx/html/
+
+# Configuração SPA
 RUN echo 'server { \
     listen 80; \
+    server_name localhost; \
     location / { \
         root /usr/share/nginx/html; \
         index index.html index.htm; \
