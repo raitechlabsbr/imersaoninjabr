@@ -1,0 +1,12 @@
+version: '3.8'
+
+services:
+  frontend-vite:
+    # Diz ao Docker para construir a imagem baseada no Dockerfile da pasta atual
+    build: . 
+    container_name: imersaoninjaraitech
+    restart: always
+    ports:
+      # Mapeia a porta da VPS (esquerda) para a porta do container (direita)
+      # Podes mudar o 5173 para outra porta livre na tua VPS, ex: 8080
+      - "5173:80"
