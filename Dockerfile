@@ -1,31 +1,34 @@
-# --- Etapa 1: Build ---
+# --- Etapa 1: Build (Usando PNPM) ---
 FROM node:18 as build
 
 WORKDIR /app
 
-# Copia os ficheiros de dependência
-COPY package*.json ./
+# Ativa o pnpm (que já vem no Node 18 via corepack)
+RUN corepack enable
 
-# --- A CORREÇÃO ESTÁ AQUI ---
-# 1. Removemos o package-lock.json vindo do Windows para evitar conflitos
-# 2. Limpamos o cache do npm
-# 3. Instalamos as dependências do zero
-RUN rm -rf package-lock.json node_modules && npm install
+# Copia os ficheiros de definição de pacotes
+COPY package.json pnpm-lock.yaml* ./
 
-# Copia o restante código
+# IMPORTANTE: Copia a pasta de patches antes de instalar
+# O teu package.json exige isso para o 'wouter'
+COPY patches ./patches
+
+# Instala as dependências usando pnpm
+RUN pnpm install
+
+# Copia o resto do código
 COPY . .
 
-# Build do Vite
-RUN npm run build
+# Cria a versão de produção
+RUN pnpm run build
 
-# --- Etapa 2: Servidor Nginx ---
+# --- Etapa 2: Servidor (Nginx) ---
 FROM nginx:alpine
 
-# Copia o build da etapa anterior
+# Copia os ficheiros estáticos gerados (pasta dist)
 COPY --from=build /app/dist /usr/share/nginx/html
 
-# Configuração opcional para garantir que o React Router funcione (SPA)
-# Cria um ficheiro de configuração básico para o Nginx on-the-fly
+# Configuração do Nginx para Single Page Application (React)
 RUN echo 'server { \
     listen 80; \
     location / { \
