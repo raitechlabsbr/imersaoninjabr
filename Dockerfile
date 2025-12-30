@@ -6,34 +6,34 @@ WORKDIR /app
 # Ativa o pnpm
 RUN corepack enable
 
-# Copia os ficheiros de definição
+# Copia ficheiros de dependência
 COPY package.json pnpm-lock.yaml* ./
-
-# Copia a pasta de patches (necessário para o teu projeto)
 COPY patches ./patches
 
-# Instala as dependências
+# Instala dependências
 RUN pnpm install
 
-# Copia todo o código
+# Copia o código fonte
 COPY . .
 
-# --- MUDANÇA IMPORTANTE AQUI ---
-# Em vez de 'pnpm run build' (que tenta compilar o backend junto),
-# vamos rodar apenas o build do Vite para gerar o site estático.
+# Constrói APENAS o frontend (ignora erros de TS se houver)
+# O comando tsc é removido para garantir que o build termine mesmo com avisos
 RUN npx vite build
 
 # --- Etapa 2: Servidor (Nginx) ---
 FROM nginx:alpine
 
-# Remove a página padrão do Nginx (aquela "Welcome to nginx" que estás a ver)
+# 1. Limpa TUDO o que existe na pasta padrão do Nginx
 RUN rm -rf /usr/share/nginx/html/*
 
-# Copia o conteúdo da pasta dist (gerada pelo Vite) para o Nginx
-# O ponto final (.) garante que copiamos o CONTEÚDO, não a pasta em si
-COPY --from=build /app/dist/ /usr/share/nginx/html/
+# 2. Copia o CONTEÚDO da pasta dist para a raiz do html
+# A flag chown garante que o nginx é dono dos ficheiros
+COPY --from=build --chown=nginx:nginx /app/dist /usr/share/nginx/html
 
-# Configuração SPA
+# 3. CORREÇÃO DO ERRO 403: Garante permissões de leitura para todos
+RUN chmod -R 755 /usr/share/nginx/html
+
+# Configuração do Nginx (SPA)
 RUN echo 'server { \
     listen 80; \
     server_name localhost; \
@@ -41,6 +41,11 @@ RUN echo 'server { \
         root /usr/share/nginx/html; \
         index index.html index.htm; \
         try_files $uri $uri/ /index.html; \
+    } \
+    # Página de erro para depuração
+    error_page 500 502 503 504 /50x.html; \
+    location = /50x.html { \
+        root /usr/share/nginx/html; \
     } \
 }' > /etc/nginx/conf.d/default.conf
 
