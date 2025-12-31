@@ -59,10 +59,18 @@ export default function Pricing() {
                 </CardHeader>
 
                 <CardContent className="space-y-6 pt-6">
-                  <Button className="w-full h-14 text-lg bg-primary text-primary-foreground hover:bg-primary/90 shadow-[0_0_20px_rgba(122,66,217,0.4)] hover:shadow-[0_0_30px_rgba(122,66,217,0.6)] transition-all duration-300 group">
-                    <Zap className="mr-2 h-5 w-5 group-hover:text-white" />
-                    Quero Ser Ninja
-                  </Button>
+                  {/* Link adicionado envolvendo o botão */}
+                  <a 
+                    href="https://pay.hotmart.com/B103548490R" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="w-full block"
+                  >
+                    <Button className="w-full h-14 text-lg bg-primary text-primary-foreground hover:bg-primary/90 shadow-[0_0_20px_rgba(122,66,217,0.4)] hover:shadow-[0_0_30px_rgba(122,66,217,0.6)] transition-all duration-300 group">
+                      <Zap className="mr-2 h-5 w-5 group-hover:text-white" />
+                      Quero Ser Ninja
+                    </Button>
+                  </a>
                 </CardContent>
 
                 <CardFooter className="bg-muted/30 py-4 justify-center">

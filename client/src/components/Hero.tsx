@@ -20,6 +20,14 @@ export default function Hero() {
             Masterclass Ao Vivo • 3 Horas de Prática
           </div>
 
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 border border-primary/20 text-primary text-sm font-mono animate-fade-in-up">
+            <span className="relative flex h-2 w-2">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
+            </span>
+           10 Janeiro - 20:00 Hrs
+          </div>
+
           {/* Headline */}
           <h1 className="text-5xl md:text-7xl font-display font-bold tracking-tight leading-tight animate-fade-in-up delay-100">
             Torne-se um <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-purple-400 text-glow">Ninja da Automação</span> e Pare de Travar na Infraestrutura
@@ -32,16 +40,21 @@ export default function Hero() {
 
           {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto animate-fade-in-up delay-300">
-            <Button size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90 text-lg h-14 px-8 shadow-[0_0_20px_rgba(122,66,217,0.3)] hover:shadow-[0_0_30px_rgba(122,66,217,0.5)] transition-all duration-300 group">
-              <Zap className="mr-2 h-5 w-5 group-hover:text-white transition-colors" />
-              Quero Me Tornar Um Ninja
-              <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
-            </Button>
             
-            <Button variant="outline" size="lg" className="border-primary/20 text-foreground hover:bg-primary/10 hover:border-primary/50 text-lg h-14 px-8 font-mono">
-              <Terminal className="mr-2 h-5 w-5 text-primary" />
-              Ver a Ementa Técnica
-            </Button>
+            {/* Link direto abrindo em nova aba */}
+            <a 
+              href="https://pay.hotmart.com/B103548490R" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="w-full sm:w-auto"
+            >
+              <Button size="lg" className="w-full bg-primary text-primary-foreground hover:bg-primary/90 text-lg h-14 px-8 shadow-[0_0_20px_rgba(122,66,217,0.3)] hover:shadow-[0_0_30px_rgba(122,66,217,0.5)] transition-all duration-300 group">
+                <Zap className="mr-2 h-5 w-5 group-hover:text-white transition-colors" />
+                Quero Me Tornar Um Ninja
+                <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
+              </Button>
+            </a>
+            
           </div>
 
           {/* Tech Stack Strip */}
