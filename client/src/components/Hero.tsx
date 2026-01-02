@@ -25,7 +25,7 @@ export default function Hero() {
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
               <span className="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
             </span>
-           10 Janeiro - 20:00 Hrs
+           24 Janeiro - 16:00 Hrs
           </div>
 
           {/* Headline */}
@@ -43,7 +43,7 @@ export default function Hero() {
             
             {/* Link direto abrindo em nova aba */}
             <a 
-              href="https://pay.hotmart.com/B103548490R" 
+              href="https://pay.kiwify.com.br/127zS89" 
               target="_blank" 
               rel="noopener noreferrer"
               className="w-full sm:w-auto"

@@ -4,7 +4,7 @@ services:
   frontend-vite:
     # Diz ao Docker para construir a imagem baseada no Dockerfile da pasta atual
     build: . 
-    container_name: imersaoninjaraitech
+    container_name: imersao_ninja_raitech
     restart: always
     ports:
       # Mapeia a porta da VPS (esquerda) para a porta do container (direita)

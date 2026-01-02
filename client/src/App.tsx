@@ -6,11 +6,20 @@ import ErrorBoundary from "./components/ErrorBoundary";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import Home from "./pages/Home";
 
+// 1. IMPORTAR A NOVA PÁGINA AQUI
+// Nota: Mantive o nome "ThanYouPage" conforme o nome do teu arquivo, 
+// mas o ideal seria renomear o arquivo para "ThankYouPage" (com k) depois.
+import ThankYouPage from "@/components/ThankYouPage"; 
 
 function Router() {
   return (
     <Switch>
       <Route path={"/"} component={Home} />
+      
+      {/* 2. ADICIONAR A NOVA ROTA AQUI */}
+      {/* Agora, quando acessares /obrigado, esta página vai carregar */}
+      <Route path={"/obrigado"} component={ThankYouPage} />
+      
       <Route path={"/404"} component={NotFound} />
       {/* Final fallback route */}
       <Route component={NotFound} />

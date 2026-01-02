@@ -61,7 +61,7 @@ export default function Pricing() {
                 <CardContent className="space-y-6 pt-6">
                   {/* Link adicionado envolvendo o botão */}
                   <a 
-                    href="https://pay.hotmart.com/B103548490R" 
+                    href="https://pay.kiwify.com.br/127zS89" 
                     target="_blank" 
                     rel="noopener noreferrer"
                     className="w-full block"
